@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Reminders Server - Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            padding: 60px 80px;
+            background: white;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide:last-child {
+            page-break-after: avoid;
+        }
+        
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .title-slide .subtitle {
+            font-size: 1.8rem;
+            opacity: 0.95;
+            margin-bottom: 40px;
+        }
+        
+        .title-slide .tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            border-top: 2px solid rgba(255,255,255,0.3);
+            padding-top: 30px;
+            margin-top: 30px;
+        }
+        
+        /* Regular Slides */
+        .slide h2 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #667eea;
+        }
+        
+        .slide h3 {
+            font-size: 1.5rem;
+            color: #764ba2;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content {
+            flex: 1;
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+        
+        .content ul {
+            margin-left: 30px;
+        }
+        
+        .content li {
+            margin: 15px 0;
+        }
+        
+        .content li strong {
+            color: #667eea;
+        }
+        
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        /* Architecture Diagram */
+        .architecture {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+        }
+        
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature-card h4 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        /* Tech Stack */
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .decorator { color: #d7ba7d; }
+        
+        /* Thank You Slide */
+        .thank-you {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .thank-you h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+            font-size: 3rem;
+        }
+        
+        .contact-info {
+            margin-top: 40px;
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        @media print {
+            .slide {
+                min-height: 100vh;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide title-slide">
+        <h1>MCP Reminders Server</h1>
+        <p class="subtitle">AI-Powered Reminder Assistant using Model Context Protocol</p>
+        <p class="tagline">Seamless Task Management Through Natural Conversation</p>
+    </div>
+
+    <!-- Slide 2: Problem Statement -->
+    <div class="slide">
+        <h2>Problem Statement</h2>
+        <div class="content">
+            <h3>Current Challenges</h3>
+            <ul>
+                <li><strong>Context Switching:</strong> Users must leave their current workflow to open separate reminder apps</li>
+                <li><strong>Manual Interaction:</strong> Traditional apps require navigating menus and filling forms</li>
+                <li><strong>Forgotten Tasks:</strong> The friction of creating reminders leads to missed tasks</li>
+                <li><strong>Disconnected Experience:</strong> AI assistants can't interact with task management tools</li>
+            </ul>
+            
+            <h3>The Gap</h3>
+            <p style="margin-top: 20px; font-size: 1.4rem; color: #764ba2;">
+                There's no seamless way to manage reminders through natural language conversation with AI assistants.
+            </p>
+        </div>
+    </div>
+
+    <!-- Slide 3: Solution -->
+    <div class="slide">
+        <h2>Our Solution</h2>
+        <div class="content">
+            <p style="font-size: 1.5rem; margin-bottom: 30px;">
+                An <strong>MCP-based Reminder Server</strong> that integrates directly with AI assistants like Claude Desktop.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Natural Language</h4>
+                    <p>"Remind me in 2 hours"</p>
+                </div>
+                <div class="feature-card">
+                    <h4>No App Switching</h4>
+                    <p>Stay in your AI chat</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Full CRUD</h4>
+                    <p>Create, List, Complete, Delete</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Persistent Storage</h4>
+                    <p>Reminders saved locally</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Due Alerts</h4>
+                    <p>Check overdue reminders</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Flexible Time</h4>
+                    <p>Relative & absolute formats</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Technical Architecture -->
+    <div class="slide">
+        <h2>Technical Architecture</h2>
+        <div class="content">
+            <div class="architecture">
+<pre>
+┌─────────────────────┐                    ┌─────────────────────┐
+│                     │    MCP Protocol    │                     │
+│   Claude Desktop    │◄──────────────────►│    FastMCP Server   │
+│    (AI Client)      │      (stdio)       │     (Python)        │
+│                     │                    │                     │
+└─────────────────────┘                    └──────────┬──────────┘
+                                                      │
+                                                      │ Read/Write
+                                                      ▼
+                                           ┌─────────────────────┐
+                                           │                     │
+                                           │  ~/.mcp_reminders   │
+                                           │       .json         │
+                                           │                     │
+                                           └─────────────────────┘
+</pre>
+            </div>
+            
+            <h3>Key Components</h3>
+            <ul>
+                <li><strong>MCP Server:</strong> Exposes tools via Model Context Protocol</li>
+                <li><strong>Time Parser:</strong> Handles "in 30 minutes" and "2024-12-15 14:00" formats</li>
+                <li><strong>JSON Storage:</strong> Persistent local file storage</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 5: Tools & Features -->
+    <div class="slide">
+        <h2>MCP Tools Implemented</h2>
+        <div class="content">
+            <div class="two-column">
+                <div>
+                    <h3>create_reminder</h3>
+                    <p>Create a new reminder with message and time</p>
+                    <div class="code-block">
+                        <span class="decorator">@mcp.tool</span><br>
+                        <span class="keyword">def</span> <span class="function">create_reminder</span>(message, time)
+                    </div>
+                    
+                    <h3>list_reminders</h3>
+                    <p>List all reminders by status (pending/completed/all)</p>
+                    
+                    <h3>get_due_reminders</h3>
+                    <p>Get all overdue reminders</p>
+                </div>
+                <div>
+                    <h3>complete_reminder</h3>
+                    <p>Mark a reminder as completed</p>
+                    
+                    <h3>delete_reminder</h3>
+                    <p>Permanently delete a reminder</p>
+                    
+                    <h3 style="margin-top: 40px;">Supported Time Formats</h3>
+                    <ul>
+                        <li>"in 30 minutes"</li>
+                        <li>"in 2 hours"</li>
+                        <li>"in 1 day"</li>
+                        <li>"2024-12-15 14:00"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Tech Stack -->
+    <div class="slide">
+        <h2>Technology Stack</h2>
+        <div class="content">
+            <div class="tech-grid">
+                <span class="tech-badge">Python 3.10+</span>
+                <span class="tech-badge">FastMCP</span>
+                <span class="tech-badge">Model Context Protocol</span>
+                <span class="tech-badge">Claude Desktop</span>
+                <span class="tech-badge">uv</span>
+                <span class="tech-badge">JSON</span>
+            </div>
+            
+            <h3 style="margin-top: 50px;">Why These Technologies?</h3>
+            <ul>
+                <li><strong>FastMCP:</strong> Simplest way to build MCP servers with Python decorators</li>
+                <li><strong>MCP Protocol:</strong> Industry standard for AI tool integration (by Anthropic)</li>
+                <li><strong>uv:</strong> Lightning-fast Python package management</li>
+                <li><strong>JSON:</strong> Human-readable, portable data storage</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 7: Demo / Usage -->
+    <div class="slide">
+        <h2>Usage Examples</h2>
+        <div class="content">
+            <h3>Creating a Reminder</h3>
+            <div class="code-block">
+User: "Remind me to submit the project report in 2 hours"
+<br><br>
+Claude: ✅ Reminder created successfully!
+        ID: reminder_1_1734183600
+        Message: submit the project report
+        Due: 2024-12-14 21:30:00
+            </div>
+            
+            <h3>Checking Reminders</h3>
+            <div class="code-block">
+User: "What reminders do I have pending?"
+<br><br>
+Claude: You have 3 pending reminders:
+        1. Submit project report - Due in 1h 45m
+        2. Call mom - Due in 3h 20m
+        3. Team meeting prep - OVERDUE by 15m
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Future Scope -->
+    <div class="slide">
+        <h2>Future Scope</h2>
+        <div class="content">
+            <div class="two-column">
+                <div>
+                    <h3>Enhancements</h3>
+                    <ul>
+                        <li>Push notifications integration</li>
+                        <li>Recurring reminders support</li>
+                        <li>Priority levels (high/medium/low)</li>
+                        <li>Categories and tags</li>
+                        <li>Natural language editing</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Integrations</h3>
+                    <ul>
+                        <li>Calendar sync (Google, Outlook)</li>
+                        <li>Database backend (SQLite, PostgreSQL)</li>
+                        <li>Cloud sync across devices</li>
+                        <li>Mobile app companion</li>
+                        <li>Email/SMS notifications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Thank You -->
+    <div class="slide thank-you">
+        <h2>Thank You!</h2>
+        <div class="contact-info">
+            <p style="font-size: 1.5rem; margin-bottom: 20px;">Questions?</p>
+            <p>GitHub: <em>[https://github.com/swstkswstk/AI_Reminder_Assistant_MCP.git]</em></p>
+        </div>
+    </div>
+
+</body>
+</html>
